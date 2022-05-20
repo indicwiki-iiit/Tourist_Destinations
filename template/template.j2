@@ -1,0 +1,165 @@
+{%- macro intro() -%}   
+    {%- set lineCSC = [
+                        name+' అనే సందర్శన ప్రదేశం '+country+' దేశంలోని '+state+' రాష్ట్రంకి చందిన '+city+' నగరం లో ఉంది.',
+                        name+' అనే పర్యాటక ప్రదేశం '+city+' లో ఉంది. ఈ నగరం '+country+' దేశంలోని '+state+'రాష్ట్రంలో ఉంది.'
+                      ] | random
+    -%}
+    
+    {%- set lineCC = [
+                        name+' అనే సందర్శన ప్రదేశం '+country+' దేశంలోని '+city+' నగరం లో ఉంది.' ,
+                        name+' అనే పర్యాటక ప్రదేశం '+city+' లో ఉంది. ఈ నగరం '+country+' దేశంలో ఉంది.'
+                     ] | random
+    -%}                
+          
+    {%- set lineC = [
+                        name+' అనే సందర్శన ప్రదేశం '+city+' నగరం లో ఉంది.' ,
+                        name+' అనే పర్యాటక ప్రదేశం '+city+' లో ఉంది.'
+                    ] | random
+    -%}
+                        
+    {%- if ((country)) != 'None' and ((state)) != "None" and ((city)) != "None" -%}
+        {{lineCSC}}
+    {%- elif (country)!= "None" and (city) != "None" -%}
+        {{lineCC}}
+    {%- elif ((city)) != 'None' -%}
+        {{lineC}}
+    {%- endif -%}
+    
+    
+    {%- set continent_line = [
+                                'ఇది '+continent+' ఖండంలో ఉంది.',
+                                continent+' అనే ఖండంలో ఇది ఉంది.'
+                             ] | random
+    -%}                         
+    
+    {%- if ((continent)) != 'None' -%}
+        {{continent_line}}
+    {%- endif -%}
+    
+    
+    {%- if ((destination type)) != 'None' -%}
+        {{name}} ఒక {{destination type}}.
+    {%- endif -%}
+{%- endmacro -%}    
+    
+
+{%- macro details() -%}
+
+    {%- set imp_line = 
+                        [
+                        
+                            country+'లోని అత్యుత్తమ సందర్శన ప్రదేశాలలో '+name+' ఒకటి.' ,
+                            name+' '+country+'లోని అత్యుత్తమ పర్యాటక ప్రదేశాలలో ఒకటి.'
+                        ] | random
+    -%}
+    
+    {{imp_line}}
+    
+    
+    {%- set visitors_line1 = 
+                            [
+                                name+'ను సందర్శించడానికి ప్రతి ఏట '+visiters per year+' సందర్శకులు వస్తారు.' ,
+                                'ప్రతి ఏట '+name+'ని చూసేందుకు '+visiters per year+' సందర్శకులు వస్తారు.'
+                            ] | random
+    -%}
+    
+    {%- set visitors_line2 = 
+                            [
+                                name+'ను సందర్శించడానికి ప్రతి ఏట చాలా మంది సందర్శకులు వస్తారు.' ,
+                                'ప్రతి ఏట '+name+'ని చూసేందుకు చాలా మంది సందర్శకులు వస్తారు.'
+                            ] | random
+    -%}
+    
+    {%- if ((visiters per year)) != 'None' -%}   
+        {{visitors_line1}}
+    {%- else -%}
+        {{visitors_line2}}
+    {%- endif -%}
+    
+    
+    {% set mode = how_to_reach.split(',') %}
+    
+    {%- set travel_line1 = [
+                                mode[0]+' మరియు '+mode[1]+' మార్గాల ద్వారా '+name+'కి చేరుకోవచ్చు.',
+                                name+' చేరుకోడానికి పర్యాటకులు '+mode[0]+' మరియు '+mode[1]+' మార్గాలను వినియోగించుకోవచు.'
+                           ] | random
+    -%}                      
+    
+    {%- set travel_line2 = [
+                                mode[0]+', '+mode[1]+' మరియు '+mode[2]+' మార్గాల ద్వారా '+name+'కి చేరుకోవచ్చు.',
+                                name+' చేరుకోడానికి పర్యాటకులు '+mode[0]+', '+mode[1]+' మరియు '+mode[2]+' మార్గాలను వినియోగించుకోవచు.'
+                           ] | random
+    -%}  
+    
+    {%- if ((mode)) != 'None' and mode|length == 2 -%}
+        {{travel_line1}}
+    {%- elif ((list1)) != 'None' and list1|length == 3 -%}
+        {{travel_line2}}
+    {%- endif -%}
+    
+    
+    {% set months = best_time_to_visit.split(',') %}
+    
+    {%- set month_lines1 = [
+                                'ఈ పర్యాటక ప్రదేశాన్ని సందర్శించడానికి  '+months[0]+' ఉత్తమమైన సమయం.' ,
+                                months[0]+' నెల దీనిని సందర్శించడానికి  ఉత్తమమైన సమయం.'
+                           ] | random
+    -%}
+    
+    {%- set month_lines2 = [
+                                'ఈ పర్యాటక ప్రదేశాన్ని సందర్శించడానికి  '+months[0]+' మరియు '+months[1]+' ఉత్తమమైన సమయాలు.' ,
+                                months[0]+' మరియు '+months[1]+' నెలలు దీనిని సందర్శించడానికి  ఉత్తమమైన సమయాలు.'
+                           ] | random
+    -%}
+    
+    {%- if ((months)) != 'None' and months|length == 1 -%}
+        {{month_line1}}
+    {%- elif ((months)) != 'None' and months|length == 2 -%}
+        {{month_line2}}
+    {%- endif -%}
+    
+    
+    {% set temparetures = temperature.split(',') %}
+    
+    {%- set temp_lines1 = [
+                            'ఆ సమయంలో ఈ ప్రదేశం యొక్క ఉష్ణోగ్రత:-'+temperatures[0],
+                            'ఆ సమయంలో ఈ ప్రదేశంలో నమోదయ్యె ఉష్ణోగ్రత:-'+temperatures[0]
+                          ] | random
+    -%}
+    
+    {%- set temp_lines2 = [
+                            'ఆ సమయంలో ఈ ప్రదేశం యొక్క ఉష్ణోగ్రతలు:-'+temperatures[0]+', '+temperatures[1],
+                            'ఆ సమయంలో ఈ ప్రదేశంలో నమోదయ్యె ఉష్ణోగ్రతలు:-'+temperatures[0]+", "+temperatures[1]
+                          ] | random
+    -%}
+                            
+    {%- if ((temperatures)) != 'None' and temperatures|length == 1 -%}
+        {{temp_lines1}}
+    {%- elif ((temperatures)) != 'None' and temperatures|length == 2 -%}
+        {{temp_lines2}}
+{%- endmacro -%}
+
+
+{%- macro ending() -%}
+    {% hotels = hotels_nearby.split(' | ') %}
+    {%- if ((hotels)) !='None' and hotels|length == 1 -%}
+        పర్యాటకులు {{hotels[0]}} మొదలైన హోటల్స్ లో బస చేయవచ్చు.
+    {%- elif ((hotels)) !='None' and hotels|length == 2 -%}
+        పర్యాటకులు {{hotels[0]}}, {{hotels[1]}} మొదలైన హోటల్స్ లో బస చేయవచ్చు.
+    {%- elif ((hotels)) !='None' and hotels|length == 3 -%}
+        పర్యాటకులు {{hotels[0]}}, {{hotels[1]}}, {{hotels[2]}} మొదలైన హోటల్స్ లో బస చేయవచ్చు.  
+    {%- endif -%}
+    
+    
+    {%- set rating_line = [
+                                    'గూగుల్ ట్రావెల్స్ వెబ్సైట్ లో '+name+'కి '+destination_rating+' రేటింగ్స్ ని ఇచ్చారు.',
+                                    name+'కి '+'గూగుల్ ట్రావెల్స్ '+'వెబ్సైట్ లో '+destination_rating+' రేటింగ్స్ ని ఇచ్చారు.'
+                               ] | random
+    -%}                          
+    
+    {%- if destination_rating != 'None' -%}
+        {{rating_line}}
+    {%- endif -%}
+{%- endmacro -%}
+
+       
